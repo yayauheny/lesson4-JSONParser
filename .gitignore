@@ -47,4 +47,4 @@ out/
 
 
 #json files
-.json
+*.json
