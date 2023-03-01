@@ -13,15 +13,15 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException, NoSuchFieldException {
-        double[] array = {1.0, 2, 34.0, 5.6, 3.1, 5, 6};
+        double[][] array = {{1.0, 2.0}, {3.5, 1.23123}, {1.23213124125, 1}, {13213}};
         Person person = new Person(20, "Mike", true, 's', array);
         JSONParser parser = new JSONParser();
         File myVersion = Path.of("src\\main\\java\\resources\\personsMy.json").toFile();
         File example = Path.of("src\\main\\java\\resources\\personsExample.json").toFile();
         ObjectMapper mapper = new ObjectMapper();
-//        mapper.writeValue(example, person, person);
+        mapper.writeValue(example, person);
 
-        parser.toJSON(myVersion, person, person,person);
+        parser.toJSON(myVersion, person, person, person, person);
     }
 
 
@@ -30,20 +30,20 @@ public class Main {
         private String name;
         private boolean isUnemployed;
         private char keyWord;
-        private double[] array;
+        private double[][] array;
 
-        public double[] getArray() {
+        public double[][] getArray() {
             return array;
         }
 
         public Person() {
         }
 
-        public void setArray(double[] array) {
+        public void setArray(double[][] array) {
             this.array = array;
         }
 
-        public Person(int age, String name, boolean isUnemployed, char keyWord, double[] array) {
+        public Person(int age, String name, boolean isUnemployed, char keyWord, double[][] array) {
             this.age = age;
             this.name = name;
             this.isUnemployed = isUnemployed;

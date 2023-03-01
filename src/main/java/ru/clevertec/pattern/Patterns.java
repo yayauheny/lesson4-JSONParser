@@ -7,6 +7,7 @@ public class Patterns {
     public static final String RIGHT_BRACKET = "]";
     public static final String LEFT_FIGURE_BRACKET = "{";
     public static final String RIGHT_FIGURE_BRACKET = "}";
+//    public static final String ;
 
 
 }
