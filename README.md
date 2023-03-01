@@ -7,7 +7,6 @@ To use the library, create an instance of the `JSONParser` class and call its tw
 Here is an example of how to use the JSONParser class:
 
 `JSONParser parser = new JSONParser();
-
 parser.toJSON(filePath, ...objects);`
 
 ## To Do
