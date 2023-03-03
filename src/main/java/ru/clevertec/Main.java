@@ -10,22 +10,35 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException, NoSuchFieldException {
         double[][] array = {{1.0, 2.0}, {3.5, 1.23123}, {1.23213124125, 1}, {13213}};
-        Person person = new Person(20, "Mike", true, 's', array);
+        Person person = new Person(20, "Mike", true, 's');
         JSONParser parser = new JSONParser();
         File myVersion = Path.of("src\\main\\java\\resources\\personsMy.json").toFile();
         File example = Path.of("src\\main\\java\\resources\\personsExample.json").toFile();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(example, person);
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.writeValue(example, person);
 
-        parser.toJSON(myVersion, person, person, person, person);
+//        parser.toJSON(myVersion, person);
+        Person person1 = parser.fromJSON(myVersion, Person.class);
+        System.out.println(person1.toString());
+
+    }
+    public static class Human{
+        private int age;
+
+        public Human(int age) {
+            this.age = age;
+        }
+
+        public Human() {
+        }
     }
 
-
-    public static class Person {
+    public static class Person extends Human{
         private int age;
         private String name;
         private boolean isUnemployed;
@@ -49,6 +62,13 @@ public class Main {
             this.isUnemployed = isUnemployed;
             this.keyWord = keyWord;
             this.array = array;
+        }
+
+        public Person(int age, String name, boolean isUnemployed, char keyWord) {
+            this.age = age;
+            this.name = name;
+            this.isUnemployed = isUnemployed;
+            this.keyWord = keyWord;
         }
 
         public int getAge() {
@@ -81,6 +101,17 @@ public class Main {
 
         public void setKeyWord(char keyWord) {
             this.keyWord = keyWord;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "age=" + age +
+                    ", name='" + name + '\'' +
+                    ", isUnemployed=" + isUnemployed +
+                    ", keyWord=" + keyWord +
+                    ", array=" + Arrays.toString(array) +
+                    '}';
         }
     }
 }
