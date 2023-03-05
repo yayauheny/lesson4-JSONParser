@@ -1,4 +1,4 @@
-package ru.clevertec.format;
+package ru.clevertec.json.format;
 
 public interface ClassFormatTemplate {
     <T> T checkValueCompatibility (String jsonData, Class<T> clazz);

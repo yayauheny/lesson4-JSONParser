@@ -1,40 +1,31 @@
-package ru.clevertec.format;
+package ru.clevertec.json.format;
 
-import ru.clevertec.exception.JSONParsingException;
-import ru.clevertec.parser.JSONParser;
-import ru.clevertec.util.Utils;
+import ru.clevertec.json.exception.JSONParsingException;
+import ru.clevertec.json.parser.JSONDeserializer;
+import ru.clevertec.json.util.ReflectionUtil;
+import ru.clevertec.json.util.StringUtil;
 
-public class ClassFormat implements ClassFormatTemplate {
+public final class ClassFormat implements ClassFormatTemplate {
     private static ClassFormat INSTANCE;
-
-    public static ClassFormat getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ClassFormat();
-        }
-        return INSTANCE;
-    }
+    private static ReflectionUtil reflectionUtil = ReflectionUtil.getInstance();
+    private static StringUtil stringUtil = StringUtil.getInstance();
 
     public <T> T checkValueCompatibility(String value, Class<T> clazz) {
         if (isNull(value)) return null;
-        else if (isInteger(clazz) && Utils.isNumber(value)) {
+        else if (isInteger(clazz) && stringUtil.isNumber(value)) {
             return (T) Integer.valueOf(value);
-        } else if (isDecimal(clazz) && Utils.isDecimal(value)) {
+        } else if (isDecimal(clazz) && stringUtil.isDecimal(value)) {
             return (T) Double.valueOf(value);
-        }
-        else if (isString(clazz)) {
+        } else if (isString(clazz)) {
             return (T) value;
-        }
-        else if (isChar(clazz)){
+        } else if (isChar(clazz)) {
             return (T) Character.valueOf(value.charAt(0));
-        }
-        else if (isBoolean(clazz) && Utils.isBoolean(value)) {
-            return (T) Boolean.valueOf(value.substring(1,2));
-        }
-        else if (isObject(clazz) && Utils.isObject(value)) {
-            return (T) new JSONParser().fromJSON(value, clazz);
-        }
-        else if (isArray(clazz) && Utils.isArrayValue(value)) {    //заглушка на время
-            return (T) null;
+        } else if (isBoolean(clazz) && stringUtil.isBoolean(value)) {
+            return (T) Boolean.valueOf(value.substring(1, 2));
+        } else if (isObject(clazz) && stringUtil.isObject(value)) {
+            return (T) JSONDeserializer.getInstance().fromJSON(value, clazz);
+        } else if (isArray(clazz) && stringUtil.isArrayValue(value)) {
+            return (T) reflectionUtil.parseArray(value, clazz);
         } else throw new JSONParsingException(String.format("Exception parse value: %s", value));
     }
 
@@ -84,5 +75,15 @@ public class ClassFormat implements ClassFormatTemplate {
 
     public boolean isNull(String s) {
         return "null".equalsIgnoreCase(s);
+    }
+
+    private ClassFormat() {
+    }
+
+    public static ClassFormat getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ClassFormat();
+        }
+        return INSTANCE;
     }
 }

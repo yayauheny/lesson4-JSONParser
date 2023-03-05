@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'ru.clevertec'
+group 'ru.clevertec.json'
 version '1.0-SNAPSHOT'
 
 repositories {
