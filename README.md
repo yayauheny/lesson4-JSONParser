@@ -10,4 +10,4 @@ Here is an example of how to use the JSONParser class:
 parser.toJSON(filePath, ...objects);`
 
 ## To Do
-- Implement the fromJSON method of the JSONParser class.
+- Add tests
