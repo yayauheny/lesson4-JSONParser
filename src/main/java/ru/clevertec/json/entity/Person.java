@@ -7,10 +7,29 @@ public class Person {
     private String name;
     private boolean isUnemployed;
     private char keyWord;
-    private double[]array;
+    private double[] array;
 
     public double[] getArray() {
         return array;
+    }
+
+    public Person getChild() {
+        return child;
+    }
+
+    public void setChild(Person child) {
+        this.child = child;
+    }
+
+    public Person child;
+
+    public Person(int age, String name, boolean isUnemployed, char keyWord, double[] array, Person child) {
+        this.age = age;
+        this.name = name;
+        this.isUnemployed = isUnemployed;
+        this.keyWord = keyWord;
+        this.array = array;
+        this.child = child;
     }
 
     public Person() {
@@ -77,4 +96,5 @@ public class Person {
                 ", array=" + Arrays.toString(array) +
                 '}';
     }
+
 }
