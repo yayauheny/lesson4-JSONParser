@@ -21,7 +21,7 @@ public final class ClassFormat implements ClassFormatTemplate {
         } else if (isChar(clazz)) {
             return (T) Character.valueOf(value.charAt(0));
         } else if (isBoolean(clazz) && stringUtil.isBoolean(value)) {
-            return (T) Boolean.valueOf(value.substring(1, 2));
+            return (T) Boolean.valueOf(value);
         } else if (isObject(clazz) && stringUtil.isObject(value)) {
             return (T) JSONDeserializer.getInstance().fromJSON(value, clazz);
         } else if (isArray(clazz) && stringUtil.isArrayValue(value)) {
@@ -74,7 +74,7 @@ public final class ClassFormat implements ClassFormatTemplate {
     }
 
     public boolean isNull(String s) {
-        return "null".equalsIgnoreCase(s);
+        return s == null || "null".equalsIgnoreCase(s);
     }
 
     private ClassFormat() {

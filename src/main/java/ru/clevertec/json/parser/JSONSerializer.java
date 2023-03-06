@@ -63,12 +63,10 @@ public class JSONSerializer {
                 Field field = iter.next();
                 field.setAccessible(true);
                 Object value = field.get(obj);
-                String fieldValue = "null";
+                String fieldValue = null;
                 String fieldName = field.getName().toLowerCase();
-                if (util.isNull(field)) {
-                    throw new NullPointerException("Object " + field.getName() + " is null: ");
-                }
-                if (reflectionUtil.isTextValue(field)) {
+
+                if (reflectionUtil.isTextValue(field) && !util.isNull(value)) {
                     fieldValue = String.format(Patterns.FIELD_VALUE_STRING_FORMAT, value);
                 } else if (reflectionUtil.isArray(field)) {
                     fieldValue = buildArraySignature(field, obj);
@@ -94,6 +92,7 @@ public class JSONSerializer {
     }
 
     private static String arrayIterator(Object obj) {
+        if(obj == null) return "null";
         StringBuilder builder = new StringBuilder();
         int length = Array.getLength(obj);
         builder.append(Patterns.LEFT_BRACKET);

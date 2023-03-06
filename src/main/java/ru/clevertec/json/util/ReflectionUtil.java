@@ -14,6 +14,10 @@ import static ru.clevertec.json.pattern.Patterns.RIGHT_BRACKET;
 
 public final class ReflectionUtil {
     private static ReflectionUtil INSTANCE;
+    public boolean isNull(Field field){
+        return field == null;
+    }
+
     public List<Field> getAllDeclaredFields(Class<?> aClass) {
         if (aClass == null) return Collections.emptyList();
         final Class<?> superclass = aClass.getSuperclass();
